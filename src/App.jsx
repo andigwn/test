@@ -1,17 +1,13 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Home } from "./pages/Home";
+import Frame from "./components/Frame";
+import { ThemeProvider, createTheme } from "@mui/material";
+import Products from "./pages/Products";
+import Profile from "./pages/Profile";
+import Warehouse from "./pages/Warehouse";
+import Login from "./pages/Login";
 
-
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { Home } from './pages/Home'
-import Frame from './components/Frame';
-import { ThemeProvider, createTheme } from '@mui/material';
-import Machine from './pages/Machine';
-import Materials from './pages/Materials';
-import Products from './pages/Products';
-import Profile from './pages/Profile';
-import Warehouse from './pages/Warehouse';
-
-
-const App = () => { 
+const App = () => {
   const theme = createTheme({
     typography: {
       fontFamily: ["Poppins", "sans-serif"].join("."),
@@ -19,24 +15,29 @@ const App = () => {
         red: "#8E0000",
       },
     },
-  })
+  });
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <Frame>
-          <Routes>
-            <Route path="/" element={<Home/>}/>
-            <Route path="/machine" element={<Machine/>}/>
-            <Route path="/materials" element={<Materials/>}/>
-            <Route path="/products" element={<Products/>}/> 
-            <Route path="/profile" element={<Profile/>}/>
-            <Route path="/warehouse" element={<Warehouse/>}/>
-          </Routes>
-        </Frame>
+        <Routes>
+          <Route path="/" element={<Login title="Login" />} />
+          <Route
+            path="*"
+            element={
+              <Frame>
+                <Routes>
+                  <Route path="/home" element={<Home />} />
+                  <Route path="/kamars" element={<Products />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/kos" element={<Warehouse />} />
+                </Routes>
+              </Frame>
+            }
+          />
+        </Routes>
       </BrowserRouter>
     </ThemeProvider>
-  ) ;
-  
-}
+  );
+};
 
 export default App;
